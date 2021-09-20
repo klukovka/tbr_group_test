@@ -33,7 +33,7 @@ class PhoneApp extends StatelessWidget {
           ),
           headline4: TextStyle(
             color: ColorsApp.darkGray,
-            fontSize: 14,
+            fontSize: 16,
           ),
         ),
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_input_formatter/mask_input_formatter.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -9,11 +10,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _controller;
+  late final MaskInputFormatter _formatter;
 
   @override
   void initState() {
     super.initState();
     _controller = new TextEditingController()..text = "";
+    _formatter = new MaskInputFormatter(mask: '(###) ###-####');
   }
 
   @override
@@ -40,33 +43,51 @@ class _HomePageState extends State<HomePage> {
               style: theme.textTheme.headline1,
             ),
             TextField(
-              controller: _controller,
-              style: theme.textTheme.headline4,
-              keyboardType: TextInputType.phone,
-              cursorColor:theme.primaryColor ,
-              cursorHeight: 32,
-              cursorWidth: 1.5,
-              textAlignVertical: TextAlignVertical.center,
-              autofocus: true,
-              decoration: InputDecoration(
-                helperText: 'Enter your phone number',
-                helperStyle: theme.textTheme.headline3,
-                hintText: '(201) 555-0123',
-                hintStyle: theme.textTheme.headline2,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: theme.primaryColorDark),
+              inputFormatters: [_formatter],
+                controller: _controller,
+                style: theme.textTheme.headline4,
+                keyboardType: TextInputType.number,
+                cursorColor: theme.primaryColor,
+                cursorHeight: 32,
+                cursorWidth: 1.5,
+                textAlignVertical: TextAlignVertical.center,
+                autofocus: true,
+                decoration: InputDecoration(
+                  helperText: 'Enter your phone number',
+                  helperStyle: theme.textTheme.headline3,
+                  hintText: '(201) 555-0123',
+                  hintStyle: theme.textTheme.headline2,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: theme.primaryColorDark),
+                  ),
+                  focusColor: theme.primaryColorDark,
+                  suffixIcon: _clearButton(theme.primaryColor),
                 ),
-                focusColor: theme.primaryColorDark,
-                
-              ),
-            ),
+                onChanged: _onCahngeValue),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.arrow_right_alt),
+        elevation: 0,
       ),
     );
+  }
+
+  Widget? _clearButton(Color color) {
+    if (_controller.text.length != 0) {
+      return IconButton(
+        icon: Icon(
+          Icons.clear_rounded,
+          color: color,
+        ),
+        onPressed: _controller.clear,
+      );
+    }
+  }
+
+  void _onCahngeValue(String value) {
+    setState(() {});
   }
 }
