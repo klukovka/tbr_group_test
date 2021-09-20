@@ -11,6 +11,7 @@ const _cursorHeight = 32.0;
 const _cursorWidth = 1.5;
 const _sendButtonElevation = 0.0;
 const _toastDuration = 2;
+const _animationDuration = 250;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -56,7 +57,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: _sendButton(theme),
+      floatingActionButton: AnimatedSwitcher(
+        duration: Duration(milliseconds: _animationDuration),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: _sendButton(theme),
+      ),
     );
   }
 
@@ -123,6 +133,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.arrow_forward),
         elevation: _sendButtonElevation,
         backgroundColor: theme.primaryColorLight,
+        key: ValueKey<bool>(false),
       );
     } else {
       return FloatingActionButton(
@@ -137,6 +148,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.arrow_forward),
         elevation: _sendButtonElevation,
         backgroundColor: theme.accentColor,
+        key: ValueKey<bool>(true),
       );
     }
   }
