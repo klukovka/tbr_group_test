@@ -40,6 +40,10 @@ class PhoneApp extends StatelessWidget {
             color: ColorsApp.darkGray,
             fontSize: _normalFontSize,
           ),
+          headline5: TextStyle(
+            color: ColorsApp.lightBlack,
+            fontSize: _normalFontSize,
+          ),
         ),
       );
 }

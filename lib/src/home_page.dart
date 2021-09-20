@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mask_input_formatter/mask_input_formatter.dart';
+import 'package:tbr_group_test/src/phone_toast.dart';
 
 const _horizontalPadding = 20.0;
 const _verticalPadding = 60.0;
@@ -19,12 +21,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _controller;
   late final MaskInputFormatter _formatter;
+  late final FToast _toast;
 
   @override
   void initState() {
     super.initState();
     _controller = new TextEditingController()..text = "";
     _formatter = new MaskInputFormatter(mask: '(###) ###-####');
+    _toast = new FToast()..init(context);
   }
 
   @override
@@ -62,8 +66,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
   bool _compareControllerLength(int length) {
     return _controller.text.length != length;
   }
@@ -93,7 +95,7 @@ class _HomePageState extends State<HomePage> {
         onChanged: _onCahngeValue);
   }
 
-    Widget? _clearButton(Color color) {
+  Widget? _clearButton(Color color) {
     if (_compareControllerLength(_emptyController)) {
       return IconButton(
         icon: Icon(
@@ -114,13 +116,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _sendButton(ThemeData theme) {
-    return FloatingActionButton(
-      onPressed: _compareControllerLength(_fullController) ? null : () {},
-      child: Icon(Icons.arrow_forward),
-      elevation: _sendButtonElevation,
-      backgroundColor: _compareControllerLength(_fullController)
-          ? theme.primaryColorLight
-          : theme.accentColor,
-    );
+    if (_compareControllerLength(_fullController)) {
+      return FloatingActionButton(
+        onPressed: null,
+        child: Icon(Icons.arrow_forward),
+        elevation: _sendButtonElevation,
+        backgroundColor: theme.primaryColorLight,
+      );
+    } else {
+      return FloatingActionButton(
+        onPressed: () {
+          _toast.showToast(
+            child: PhoneToast(_controller.text),
+            gravity: ToastGravity.BOTTOM,
+            toastDuration: Duration(seconds: 2),
+          );
+          print(_controller.text);
+        },
+        child: Icon(Icons.arrow_forward),
+        elevation: _sendButtonElevation,
+        backgroundColor: theme.accentColor,
+      );
+    }
   }
 }
