@@ -62,21 +62,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget? _clearButton(Color color) {
-    if (_compareControllerLength(_emptyController)) {
-      return IconButton(
-        icon: Icon(
-          Icons.clear_rounded,
-          color: color,
-        ),
-        onPressed: () {
-          setState(() {
-            _controller.clear();
-          });
-        },
-      );
-    }
-  }
+
 
   bool _compareControllerLength(int length) {
     return _controller.text.length != length;
@@ -107,6 +93,22 @@ class _HomePageState extends State<HomePage> {
         onChanged: _onCahngeValue);
   }
 
+    Widget? _clearButton(Color color) {
+    if (_compareControllerLength(_emptyController)) {
+      return IconButton(
+        icon: Icon(
+          Icons.cancel,
+          color: color,
+        ),
+        onPressed: () {
+          setState(() {
+            _controller.clear();
+          });
+        },
+      );
+    }
+  }
+
   void _onCahngeValue(String value) {
     setState(() {});
   }
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
   Widget _sendButton(ThemeData theme) {
     return FloatingActionButton(
       onPressed: _compareControllerLength(_fullController) ? null : () {},
-      child: Icon(Icons.arrow_right_alt),
+      child: Icon(Icons.arrow_forward),
       elevation: _sendButtonElevation,
       backgroundColor: _compareControllerLength(_fullController)
           ? theme.primaryColorLight
