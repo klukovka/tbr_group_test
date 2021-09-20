@@ -38,56 +38,79 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              'Get started',
-              style: theme.textTheme.headline1,
-            ),
-            TextField(
-              inputFormatters: [_formatter],
-                controller: _controller,
-                style: theme.textTheme.headline4,
-                keyboardType: TextInputType.number,
-                cursorColor: theme.primaryColor,
-                cursorHeight: 32,
-                cursorWidth: 1.5,
-                textAlignVertical: TextAlignVertical.center,
-                autofocus: true,
-                decoration: InputDecoration(
-                  helperText: 'Enter your phone number',
-                  helperStyle: theme.textTheme.headline3,
-                  hintText: '(201) 555-0123',
-                  hintStyle: theme.textTheme.headline2,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: theme.primaryColorDark),
-                  ),
-                  focusColor: theme.primaryColorDark,
-                  suffixIcon: _clearButton(theme.primaryColor),
-                ),
-                onChanged: _onCahngeValue),
+            _headLineText(theme),
+            _formatedField(theme),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.arrow_right_alt),
-        elevation: 0,
-      ),
+      floatingActionButton: _sendButton(theme),
+    );
+  }
+
+  Widget _headLineText(ThemeData theme) {
+    return Text(
+      'Get started',
+      style: theme.textTheme.headline1,
     );
   }
 
   Widget? _clearButton(Color color) {
-    if (_controller.text.length != 0) {
+    if (_compareControllerLength(0)) {
       return IconButton(
         icon: Icon(
           Icons.clear_rounded,
           color: color,
         ),
-        onPressed: _controller.clear,
+        onPressed: () {
+          setState(() {
+            _controller.clear();
+          });
+        },
       );
     }
   }
 
+  bool _compareControllerLength(int length) {
+    return _controller.text.length != length;
+  }
+
+  Widget _formatedField(ThemeData theme) {
+    return TextField(
+        inputFormatters: [_formatter],
+        controller: _controller,
+        style: theme.textTheme.headline4,
+        keyboardType: TextInputType.number,
+        cursorColor: theme.primaryColor,
+        cursorHeight: 32,
+        cursorWidth: 1.5,
+        textAlignVertical: TextAlignVertical.center,
+        autofocus: true,
+        decoration: InputDecoration(
+          helperText: 'Enter your phone number',
+          helperStyle: theme.textTheme.headline3,
+          hintText: '(201) 555-0123',
+          hintStyle: theme.textTheme.headline2,
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: theme.primaryColorDark),
+          ),
+          focusColor: theme.primaryColorDark,
+          suffixIcon: _clearButton(theme.primaryColor),
+        ),
+        onChanged: _onCahngeValue);
+  }
+
   void _onCahngeValue(String value) {
     setState(() {});
+  }
+
+  Widget _sendButton(ThemeData theme) {
+    return FloatingActionButton(
+      onPressed: _compareControllerLength(14) ? null : () {},
+      child: Icon(Icons.arrow_right_alt),
+      elevation: 0,
+      backgroundColor: _compareControllerLength(14)
+          ? theme.primaryColorLight
+          : theme.accentColor,
+    );
   }
 }

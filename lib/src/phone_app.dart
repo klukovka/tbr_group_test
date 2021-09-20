@@ -17,6 +17,7 @@ class PhoneApp extends StatelessWidget {
         primaryColor: ColorsApp.gray,
         primaryColorDark: ColorsApp.darkGray,
         primaryColorLight: ColorsApp.lightGray,
+        accentColor: Colors.blue,
         textTheme: TextTheme(
           headline1: TextStyle(
             color: ColorsApp.lightBlack,
