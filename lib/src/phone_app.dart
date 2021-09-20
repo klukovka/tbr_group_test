@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tbr_group_test/src/home_page.dart';
 import 'package:tbr_group_test/values/colors.dart';
 
+const _lowFontSize = 14.0;
+const _normalFontSize = 16.0;
+const _highFontSize = 24.0;
+
 class PhoneApp extends StatelessWidget {
   const PhoneApp({Key? key}) : super(key: key);
 
@@ -21,20 +25,20 @@ class PhoneApp extends StatelessWidget {
         textTheme: TextTheme(
           headline1: TextStyle(
             color: ColorsApp.lightBlack,
-            fontSize: 24,
+            fontSize: _highFontSize,
             fontWeight: FontWeight.bold,
           ),
           headline2: TextStyle(
             color: ColorsApp.gray,
-            fontSize: 16,
+            fontSize: _normalFontSize,
           ),
           headline3: TextStyle(
             color: ColorsApp.gray,
-            fontSize: 14,
+            fontSize: _lowFontSize,
           ),
           headline4: TextStyle(
             color: ColorsApp.darkGray,
-            fontSize: 16,
+            fontSize: _normalFontSize,
           ),
         ),
       );

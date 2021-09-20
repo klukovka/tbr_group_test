@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mask_input_formatter/mask_input_formatter.dart';
 
+const _horizontalPadding = 20.0;
+const _verticalPadding = 60.0;
+const _emptyController = 0;
+const _fullController = 14;
+const _cursorHeight = 32.0;
+const _cursorWidth = 1.5;
+const _sendButtonElevation = 0.0;
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -32,8 +40,8 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 60,
+          horizontal: _horizontalPadding,
+          vertical: _verticalPadding,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? _clearButton(Color color) {
-    if (_compareControllerLength(0)) {
+    if (_compareControllerLength(_emptyController)) {
       return IconButton(
         icon: Icon(
           Icons.clear_rounded,
@@ -81,8 +89,8 @@ class _HomePageState extends State<HomePage> {
         style: theme.textTheme.headline4,
         keyboardType: TextInputType.number,
         cursorColor: theme.primaryColor,
-        cursorHeight: 32,
-        cursorWidth: 1.5,
+        cursorHeight: _cursorHeight,
+        cursorWidth: _cursorWidth,
         textAlignVertical: TextAlignVertical.center,
         autofocus: true,
         decoration: InputDecoration(
@@ -105,10 +113,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _sendButton(ThemeData theme) {
     return FloatingActionButton(
-      onPressed: _compareControllerLength(14) ? null : () {},
+      onPressed: _compareControllerLength(_fullController) ? null : () {},
       child: Icon(Icons.arrow_right_alt),
-      elevation: 0,
-      backgroundColor: _compareControllerLength(14)
+      elevation: _sendButtonElevation,
+      backgroundColor: _compareControllerLength(_fullController)
           ? theme.primaryColorLight
           : theme.accentColor,
     );
