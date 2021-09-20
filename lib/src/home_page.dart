@@ -10,6 +10,7 @@ const _fullController = 14;
 const _cursorHeight = 32.0;
 const _cursorWidth = 1.5;
 const _sendButtonElevation = 0.0;
+const _toastDuration = 2;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
           _toast.showToast(
             child: PhoneToast(_controller.text),
             gravity: ToastGravity.BOTTOM,
-            toastDuration: Duration(seconds: 2),
+            toastDuration: Duration(seconds: _toastDuration),
           );
           print(_controller.text);
         },

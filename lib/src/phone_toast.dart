@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const _horizontalPadding = 24.0;
+const _verticalPadding = 12.0;
+const _circularRadius = 25.0;
+
 class PhoneToast extends StatelessWidget {
   const PhoneToast(this._toastText, {Key? key}) : super(key: key);
 
@@ -9,9 +13,12 @@ class PhoneToast extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: _horizontalPadding,
+        vertical: _verticalPadding,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(_circularRadius),
         color: theme.primaryColor,
       ),
       child: Text(
